@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Product;
+namespace App\Http\Controllers\Request;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product\Product;
 use App\Models\Product\Type;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class RequestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
-        return view('product.index', compact('products'));
+        $requests = \App\Models\Request\Request::latest()->paginate(5);
+        return view('request.index', compact('requests'));
 
     }
 
@@ -26,24 +24,26 @@ class ProductController extends Controller
     public function create()
     {
         $typesProduct = Type::all();
-        return view('product.create', compact('typesProduct'));
+        return view('request.create', compact('typesProduct'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Product $product)
+    public function store(Request $request, \App\Models\Request\Request $requestm)
     {
         $validated = $request->validate([
             'name' => 'required|unique:products|max:50',
-            'price' => 'required|integer',
+            'min' => 'required|integer',
+            'max' => 'required|integer',
             'type' => 'required|integer',
         ]);
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->type_id = $request->type;
-        $product->user_id = auth()->user()->id;
-        $product->save();
+        $requestm->name = $request->name;
+        $requestm->min = $request->min;
+        $requestm->max = $request->max;
+        $requestm->type_id = $request->type;
+        $requestm->user_id = auth()->user()->id;
+        $requestm->save();
         return back();
     }
 
@@ -76,7 +76,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        Product::find($id)->delete();
+        \App\Models\Request\Request::find($id)->delete();
         return back();
     }
 }

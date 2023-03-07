@@ -10,5 +10,8 @@ class Type extends Model
     use HasFactory;
 
     public $table = 'products_type';
+    public function products() {
+        return $this->hasMany(Product::class);
+    }
 
 }

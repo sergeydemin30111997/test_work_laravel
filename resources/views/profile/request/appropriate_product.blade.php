@@ -2,8 +2,9 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
-                <h3>Все товары</h3>
+            <div class="col-md-8">
+                <h3>Мои товары</h3>
+                <a href="{{ route('product.create') }}" class="btn btn-info">Создать</a>
                 <table class="table">
                     <thead>
                     <tr>
@@ -14,11 +15,11 @@
                     </thead>
                     <tbody>
                     @foreach($products as $product)
-                    <tr>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->price }}</td>
-                        <td>{{ $product->created_at->format('d.m.Y') }}</td>
-                    </tr>
+                        <tr>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->price }}</td>
+                            <td>{{ $product->created_at->format('d.m.Y') }}</td>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>

@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Models\Product;
+namespace App\Models\Request;
 
-use App\Models\User;
+use App\Models\Product\Type;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
-class Product extends Model
+class Request extends Model
 {
     use HasFactory;
     public function user() {
-       return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
     public function type() {
         return $this->belongsTo(Type::class);
